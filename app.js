@@ -59,6 +59,12 @@ app.use("/trade", tradeRoutes)
 //     console.log( "___________","REQ INN", req.body, "FILES,", req.files)
 // })
 
+app.use(express.static(path.join(__dirname, "web-build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "web-build/index.html"));
+});
+
 app.listen(port,localIp, (err)=>{
     db()
     if(err)console.log(err);

@@ -7,6 +7,8 @@ const loanRoutes = require('./routes/loanRoutes');
 const withDrawalRoutes = require('./routes/withDrawalRoutes');
 const exchangeRoutes = require("./routes/exchangeRoutes")
 const tradeRoutes = require('./routes/tradeRoutes')
+const customDataRoutes = require('./routes/customDataRoutes')
+
 const cors = require("cors");
 const db = require('./config/DbConnection');
 const bodyParser = require('body-parser');
@@ -53,6 +55,8 @@ app.use("/loan", loanRoutes )
 app.use("/withdrawal", withDrawalRoutes)
 app.use("/exchange", exchangeRoutes)
 app.use("/trade", tradeRoutes)
+app.use("/data", customDataRoutes)
+
 
 
 

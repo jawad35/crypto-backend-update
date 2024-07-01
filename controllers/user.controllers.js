@@ -145,3 +145,32 @@ exports.getWallet= async (req, res )=>{
   }
 
 }
+
+exports.UpdateWallet= async (req, res )=> { 
+  const { id, name, amount } = req.body;
+
+  try {
+    // Find the wallet by ID
+    const wallet = await Wallet.findById(id);
+
+    if (!wallet) {
+      return res.status(404).json({ message: 'Wallet not found' });
+    }
+
+    // Find the currency by name and update the amount
+    const balanceItem = wallet.currentBalance.find(item => item.name === name);
+    
+    if (!balanceItem) {
+      return res.status(404).json({ message: 'Currency not found in wallet' });
+    }
+
+    balanceItem.amount = amount;
+
+    // Save the updated wallet
+    await wallet.save();
+
+    res.json({ message: 'Wallet updated successfully', wallet, status:200, amount: balanceItem.amount });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
